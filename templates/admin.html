@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Panel - Flight Reservation System{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="mb-4">
+        <i class="bi bi-gear-fill me-2"></i>Admin Panel
+    </h2>
+
+    <!-- Add Flight Section -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">
+                <i class="bi bi-plus-circle me-2"></i>Add New Flight
+            </h5>
+        </div>
+        <div class="card-body">
+            <div id="addFlightError" class="alert alert-danger" style="display: none;"></div>
+            <div id="addFlightSuccess" class="alert alert-success" style="display: none;"></div>
+
+            <form id="addFlightForm" class="row g-3">
+                <div class="col-md-3">
+                    <label for="flight_number" class="form-label">Flight Number</label>
+                    <input type="text" class="form-control" id="flight_number" placeholder="AI101" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="source" class="form-label">Source</label>
+                    <input type="text" class="form-control" id="source" placeholder="Delhi" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="destination" class="form-label">Destination</label>
+                    <input type="text" class="form-control" id="destination" placeholder="Mumbai" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="date" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="date" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="departure_time" class="form-label">Departure Time</label>
+                    <input type="time" class="form-control" id="departure_time" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="arrival_time" class="form-label">Arrival Time</label>
+                    <input type="time" class="form-control" id="arrival_time" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="price" class="form-label">Price (₹)</label>
+                    <input type="number" class="form-control" id="price" min="0" step="0.01" placeholder="5000"
+                        required>
+                </div>
+                <div class="col-md-3">
+                    <label for="total_seats" class="form-label">Total Seats</label>
+                    <input type="number" class="form-control" id="total_seats" min="1" placeholder="180" required>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-plus-circle me-2"></i>Add Flight
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- All Flights Section -->
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">
+                <i class="bi bi-list-ul me-2"></i>All Flights
+            </h5>
+        </div>
+        <div class="card-body">
+            <div id="loadingFlights" class="text-center py-3">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+
+            <div id="flightsContainer" style="display: none;">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Flight No.</th>
+                                <th>Route</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Price</th>
+                                <th>Seats</th>
+                                <th>Available</th>
+                            </tr>
+                        </thead>
+                        <tbody id="flightsTable">
+                            <!-- Flights will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Set minimum date to today
+    document.getElementById('date').min = new Date().toISOString().split('T')[0];
+
+    // Add flight form submission
+    document.getElementById('addFlightForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const errorDiv = document.getElementById('addFlightError');
+        const successDiv = document.getElementById('addFlightSuccess');
+        errorDiv.style.display = 'none';
+        successDiv.style.display = 'none';
+
+        const formData = {
+            flight_number: document.getElementById('flight_number').value,
+            source: document.getElementById('source').value,
+            destination: document.getElementById('destination').value,
+            date: document.getElementById('date').value,
+            departure_time: document.getElementById('departure_time').value,
+            arrival_time: document.getElementById('arrival_time').value,
+            price: parseFloat(document.getElementById('price').value),
+            total_seats: parseInt(document.getElementById('total_seats').value)
+        };
+
+        try {
+            const response = await fetch('/api/flights', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                successDiv.textContent = 'Flight added successfully!';
+                successDiv.style.display = 'block';
+                document.getElementById('addFlightForm').reset();
+                loadFlights(); // Reload flights list
+            } else {
+                errorDiv.textContent = data.error || 'Failed to add flight';
+                errorDiv.style.display = 'block';
+            }
+        } catch (error) {
+            errorDiv.textContent = 'An error occurred. Please try again.';
+            errorDiv.style.display = 'block';
+        }
+    });
+
+    // Load all flights
+    async function loadFlights() {
+        try {
+            const response = await fetch('/api/flights');
+            const data = await response.json();
+
+            document.getElementById('loadingFlights').style.display = 'none';
+
+            if (response.ok) {
+                document.getElementById('flightsContainer').style.display = 'block';
+
+                const tbody = document.getElementById('flightsTable');
+                tbody.innerHTML = data.flights.map(flight => `
+                    <tr>
+                        <td>${flight.flight_id}</td>
+                        <td><strong>${flight.flight_number}</strong></td>
+                        <td>${flight.source} → ${flight.destination}</td>
+                        <td>${formatDate(flight.date)}</td>
+                        <td>${flight.departure_time} - ${flight.arrival_time}</td>
+                        <td>₹${flight.price.toFixed(2)}</td>
+                        <td>${flight.total_seats}</td>
+                        <td>
+                            <span class="badge ${flight.available_seats > 50 ? 'bg-success' : flight.available_seats > 0 ? 'bg-warning' : 'bg-danger'}">
+                                ${flight.available_seats}
+                            </span>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+        } catch (error) {
+            console.error('Error loading flights:', error);
+        }
+    }
+
+    function formatDate(dateStr) {
+        const date = new Date(dateStr);
+        return date.toLocaleDateString('en-IN', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+    }
+
+    // Load flights when page loads
+    loadFlights();
+</script>
+{% endblock %}

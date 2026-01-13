@@ -1,0 +1,860 @@
+/* ==================== GLOBAL STYLES ==================== */
+:root {
+    --primary-color: #0ea5e9;
+    --primary-dark: #0284c7;
+    --secondary-color: #38bdf8;
+    --success-color: #10b981;
+    --danger-color: #ef4444;
+    --warning-color: #f59e0b;
+    --dark-color: #0f172a;
+    --light-color: #f0f9ff;
+    --gradient-1: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 60%, #bae6fd 100%);
+    --gradient-2: linear-gradient(135deg, #7dd3fc 0%, #bae6fd 100%);
+    --gradient-3: linear-gradient(135deg, #e0f2fe 0%, #ffffff 100%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(180deg, #e0f2fe 0%, #f0f9ff 100%);
+    min-height: 100vh;
+}
+
+/* Ticket Animation Styles */
+.ticket-plane-animation {
+    position: relative;
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(to right, #bae6fd, #e0f2fe);
+    overflow: hidden;
+    margin: 1rem 0;
+    border-radius: 15px;
+    border: 2px solid #fff;
+    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.2);
+}
+
+.ticket-plane-icon {
+    position: absolute;
+    font-size: 2.5rem;
+    color: #0284c7;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: flyAcross 4s linear infinite;
+}
+
+@keyframes flyAcross {
+    0% {
+        left: -20%;
+    }
+
+    100% {
+        left: 120%;
+    }
+}
+
+.cabin-image-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    margin-top: 1.5rem;
+}
+
+.cabin-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.cabin-image:hover {
+    transform: scale(1.05);
+}
+
+.ticket-card-content {
+    background: #fff;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 20px 60px rgba(14, 165, 233, 0.15);
+    border: 1px solid #e0f2fe;
+}
+
+/* ==================== NAVIGATION ==================== */
+.navbar {
+    background: var(--gradient-1) !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1rem 0;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover {
+    transform: scale(1.05);
+}
+
+.nav-link {
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin: 0 0.5rem;
+}
+
+.nav-link:hover {
+    transform: translateY(-2px);
+    color: #fff !important;
+}
+
+/* ==================== HERO SECTION ==================== */
+.hero-section {
+    background: var(--gradient-1);
+    padding: 5rem 0;
+    margin-bottom: 3rem;
+}
+
+.search-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.search-card:hover {
+    transform: translateY(-5px);
+}
+
+.search-card .form-label {
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+}
+
+.search-card .form-control {
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.search-card .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
+    transform: translateY(-2px);
+}
+
+/* ==================== BUTTONS ==================== */
+.btn {
+    border-radius: 10px;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-primary {
+    background: var(--gradient-1);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+}
+
+.btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+}
+
+/* ==================== FLIGHT CARDS ==================== */
+.flight-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    height: 100%;
+}
+
+.flight-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    border-color: var(--primary-color);
+}
+
+.flight-number {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    margin-bottom: 0;
+}
+
+.flight-route {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border-radius: 10px;
+}
+
+.flight-location {
+    text-align: center;
+    flex: 1;
+}
+
+.flight-location h5 {
+    font-weight: bold;
+    color: var(--dark-color);
+    margin: 0;
+}
+
+.flight-location small {
+    color: #6b7280;
+}
+
+.flight-arrow {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin: 0 1rem;
+}
+
+.flight-details {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 2px solid #f3f4f6;
+}
+
+.flight-info {
+    text-align: center;
+}
+
+.flight-info i {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.flight-info strong {
+    display: block;
+    color: var(--dark-color);
+    font-size: 1.1rem;
+}
+
+.flight-info small {
+    color: #6b7280;
+}
+
+/* ==================== FEATURE CARDS ==================== */
+.feature-card {
+    padding: 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon {
+    font-size: 3rem;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ==================== AUTH PAGES ==================== */
+.auth-container {
+    min-height: calc(100vh - 200px);
+    display: flex;
+    align-items: center;
+    padding: 3rem 0;
+}
+
+.auth-card {
+    background: white;
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.auth-card:hover {
+    transform: translateY(-5px);
+}
+
+.auth-icon {
+    font-size: 4rem;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ==================== TABLES ==================== */
+.table {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.table thead {
+    background: var(--gradient-1);
+    color: white;
+}
+
+.table tbody tr {
+    transition: all 0.3s ease;
+}
+
+.table tbody tr:hover {
+    background: #f0f9ff;
+    transform: scale(1.01);
+}
+
+/* ==================== BADGES ==================== */
+.badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+/* ==================== CARDS ==================== */
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.card-header {
+    border-bottom: none;
+    padding: 1.5rem;
+}
+
+/* ==================== MODALS ==================== */
+.modal-content {
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    background: var(--gradient-1);
+    color: white;
+    border-bottom: none;
+}
+
+.modal-header .btn-close {
+    filter: brightness(0) invert(1);
+}
+
+/* ==================== ALERTS ==================== */
+.alert {
+    border-radius: 10px;
+    border: none;
+    padding: 1rem 1.5rem;
+}
+
+/* ==================== FOOTER ==================== */
+footer {
+    background: var(--dark-color) !important;
+    margin-top: auto;
+}
+
+/* ==================== ANIMATIONS ==================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes floatPlane {
+
+    0%,
+    100% {
+        transform: translateY(0) translateX(0);
+    }
+
+    25% {
+        transform: translateY(-20px) translateX(10px);
+    }
+
+    50% {
+        transform: translateY(-10px) translateX(20px);
+    }
+
+    75% {
+        transform: translateY(-20px) translateX(10px);
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.animate-fade-in {
+    animation: fadeIn 1s ease-out;
+}
+
+.animate-fade-in-delay {
+    animation: fadeIn 1s ease-out 0.3s both;
+}
+
+/* Floating Airplane */
+.floating-plane {
+    position: absolute;
+    top: 20%;
+    right: 10%;
+    font-size: 3rem;
+    color: rgba(255, 255, 255, 0.2);
+    animation: floatPlane 6s ease-in-out infinite;
+    z-index: 1;
+}
+
+/* Pulse Button */
+.pulse-button {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.pulse-button:hover {
+    animation: none;
+}
+
+/* Filters Card */
+.filters-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    animation: slideInUp 0.5s ease-out;
+    border: 2px solid #e5e7eb;
+    transition: all 0.3s ease;
+}
+
+.filters-card:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+.filters-card .form-control,
+.filters-card .form-select {
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.filters-card .form-control:focus,
+.filters-card .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.15);
+    transform: translateY(-1px);
+}
+
+/* Flight Card Entrance Animation */
+.flight-card {
+    animation: slideInUp 0.6s ease-out;
+}
+
+.flight-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.flight-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.flight-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.flight-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.flight-card:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.flight-card:nth-child(6) {
+    animation-delay: 0.6s;
+}
+
+/* Shimmer Effect on Hover */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.flight-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.3),
+            transparent);
+    transition: left 0.5s;
+}
+
+.flight-card:hover::before {
+    left: 100%;
+}
+
+/* Hero Section Background Animation */
+.hero-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: backgroundMove 20s linear infinite;
+    opacity: 0.3;
+}
+
+@keyframes backgroundMove {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(50px, 50px);
+    }
+}
+
+/* Loading Spinner Enhancement */
+.spinner-border {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Badge Animations */
+.badge {
+    animation: slideInUp 0.5s ease-out;
+}
+
+/* Feature Card Icons Animation */
+.feature-icon {
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover .feature-icon {
+    transform: scale(1.2) rotate(5deg);
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 3rem 0;
+    }
+
+    .search-card {
+        padding: 1.5rem;
+    }
+
+    .flight-route {
+        flex-direction: column;
+    }
+
+    .flight-arrow {
+        transform: rotate(90deg);
+        margin: 1rem 0;
+    }
+
+    .auth-card {
+        padding: 2rem;
+    }
+
+    .floating-plane {
+        font-size: 2rem;
+        right: 5%;
+    }
+
+    .filters-card {
+        padding: 1rem;
+    }
+}
+
+/* ==================== UTILITIES ==================== */
+.text-gradient {
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.bg-gradient {
+    background: var(--gradient-1);
+}
+
+.shadow-lg-custom {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+/* Smooth Scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Interactive Input Focus Glow */
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+}
+
+/* Button Ripple Effect */
+.btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:active::after {
+    width: 300px;
+    height: 300px;
+}
+
+/* ==================== SEAT MAP ==================== */
+.seat-map-container {
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+}
+
+.seat-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.seat {
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border: 2px solid #cbd5e1;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #64748b;
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.seat:hover:not(.occupied) {
+    border-color: var(--primary-color);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+}
+
+.seat.selected {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(37, 99, 235, 0.4);
+}
+
+.seat.occupied {
+    background: #f1f5f9;
+    border-color: #e2e8f0;
+    color: #cbd5e1;
+    cursor: not-allowed;
+}
+
+.seat-aisle {
+    width: 30px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+/* Class Selection Card */
+.class-card {
+    border: 2px solid #e2e8f0;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.class-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.class-card.selected {
+    border-color: var(--primary-color);
+    background: #eff6ff;
+}
+
+.class-img {
+    height: 120px;
+    width: 100%;
+    object-fit: cover;
+}
+
+/* ==================== SEAT MAP ==================== */
+.seat-map-container {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid #dee2e6;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.seat-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.seat-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.seat {
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    user-select: none;
+}
+
+.seat:hover:not(.occupied):not(.selected) {
+    background-color: #e0f2fe;
+    border-color: #3b82f6;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 6px rgba(59, 130, 246, 0.2);
+    color: #0369a1;
+}
+
+.seat.selected {
+    background-color: #0d6efd;
+    color: white;
+    border-color: #0d6efd;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.4);
+    font-weight: 700;
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+}
