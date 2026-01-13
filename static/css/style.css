@@ -139,16 +139,56 @@ body {
 }
 
 .search-card .form-control {
-    border: 2px solid #e5e7eb;
+    border: 2px solid #cbd5e1;
+    /* Darker border for better definition */
     border-radius: 10px;
     padding: 0.75rem 1rem;
     transition: all 0.3s ease;
+    color: var(--dark-color);
+    /* Ensure text is dark */
+    background-color: #fff;
 }
 
 .search-card .form-control:focus {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
     transform: translateY(-2px);
+}
+
+/* Specific styling for Date Input to fix mobile visibility */
+input[type="date"].form-control {
+    position: relative;
+    color: #475569;
+    /* Darker grey for dd/mm/yyyy */
+}
+
+input[type="date"].form-control::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+    z-index: 1;
+}
+
+/* Make sure the text is dark when a date is selected */
+input[type="date"].form-control:not(:placeholder-shown) {
+    color: var(--dark-color);
+}
+
+/* Ensure the calendar icon is visible if browser doesn't support the overlay trick */
+@media (max-width: 768px) {
+    input[type="date"].form-control::-webkit-calendar-picker-indicator {
+        position: static;
+        display: block;
+        color: var(--primary-color);
+        opacity: 1;
+    }
 }
 
 /* ==================== BUTTONS ==================== */
